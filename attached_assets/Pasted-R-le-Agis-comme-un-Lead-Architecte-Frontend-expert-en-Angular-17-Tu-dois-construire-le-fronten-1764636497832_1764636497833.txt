@@ -1,0 +1,147 @@
+Rôle :
+Agis comme un Lead Architecte Frontend expert en Angular 17+.
+Tu dois construire le frontend de "Spirit Emeraude Création", une marque artisanale de luxe africaine. Le site doit respirer l'élégance, l'authenticité et l'impact social, dans le style du site de référence Mawu Africa.
+1. STACK TECHNIQUE
+Framework : Angular 17+ (Standalone Components obligatoire, aucun NgModule).
+Langage : TypeScript (Strict mode).
+Style : SCSS (Sass) avec variables CSS globales.
+HTTP : HttpClient via un ApiService générique (déjà configuré avec Interceptors pour le JWT).
+Routing : provideRouter avec Lazy Loading des features.
+2. DESIGN SYSTEM ("Luxe & Terre")
+Ambiance : Minimalisme premium. Beaucoup d'espace blanc (whitespace), pas d'ombres portées lourdes, bords nets.
+Typographie :
+Titres : 'Domine', serif (Élégant, autoritaire).
+Textes : 'Montserrat', sans-serif (Moderne, lisible).
+Palette de Couleurs :
+--color-primary: #064e3b (Vert Émeraude Profond - Luxe).
+--color-accent: #d4af37 (Or Muted / Sable - Pagne/Soleil).
+--color-bg: #fdfbf7 (Blanc Coquille d'œuf - Papier naturel).
+--color-text: #292524 (Gris anthracite chaud).
+Composants UI :
+Boutons : Rectangulaires, texte majuscule, bordures fines, effet hover "remplissage".
+Cartes : Très épurées, focus total sur l'image.
+3. ARCHITECTURE DES DOSSIERS
+Respecte scrupuleusement cette structure :
+code
+Text
+src/app/
+├── core/
+│   ├── layout/ (Header, Footer, MainLayout)
+│   ├── services/ (api.service.ts, auth.service.ts)
+│   ├── interceptors/ (jwt.interceptor.ts)
+│   ├── guards/ (auth.guard.ts)
+│   └── models/ (interfaces.ts)
+├── features/
+│   ├── home/
+│   ├── shop/ (product-list)
+│   ├── formation/ (formation-list)
+│   ├── impact/ (impact-list)
+│   ├── gallery/ (gallery-grid)
+│   ├── contact/ (contact-form)
+│   └── auth/ (login)
+└── shared/ (components: loader, button)
+4. DÉTAILS DES PAGES À DÉVELOPPER
+Voici le cahier des charges précis pour chaque vue :
+A. Layout Global (MainLayout)
+Header : Sticky. Fond légèrement transparent (glassmorphism). Logo "SPIRIT EMERAUDE" centré. Menu Desktop épuré de part et d'autre du logo. Menu Burger pour mobile.
+Footer : Fond sombre (#1f2937). Colonnes : La Marque (Mission), Liens Rapides, Contact (Brazzaville), Copyright dynamique.
+B. Page d'Accueil (HomeComponent)
+Hero Section : Design "Split Screen". Gauche : Titre accrocheur ("L'art qui libère..."), sous-titre, CTA "Découvrir". Droite : Grande image haute définition d'un sac en pagne.
+Mission (Storytelling) : Section texte sur fond blanc. Présentation de la fondatrice (Emeraude) et de la vision "Former pour libérer l'avenir". Photo portrait à côté du texte.
+Catégories : Grille asymétrique (Bento grid) présentant : "Sacs & Pochettes", "Sandales", "Formations".
+C. Boutique (ShopComponent)
+Header : Titre simple "La Collection".
+Filtres : Boutons pill-shape (Sacs, Sandales, Accessoires) qui rechargent la liste via l'API (?category=...).
+Grille Produits : Cartes minimalistes.
+Image (ratio 3:4 vertical).
+Titre discret en dessous.
+Prix en or/accent.
+Action : Bouton "Commander" qui ouvre WhatsApp dans un nouvel onglet avec le message : "Bonjour Spirit, je souhaite commander le [Nom Produit] à [Prix] FCFA."
+D. Formations (FormationComponent)
+Intro : Texte inspirant sur l'apprentissage et l'autonomisation.
+Liste : Liste verticale ou cartes larges.
+Détails affichés : Titre de l'atelier, Durée, Prix, Matériel fourni/requis, Date prochaine session.
+Action : Bouton "S'inscrire" (Redirection WhatsApp : "Bonjour, je suis intéressé par la formation [Nom Formation].").
+E. Impact Social (ImpactComponent)
+Style : Type "Editorial / Blog".
+Contenu : Liste des actions (ex: Orphelinat Sainte Thérèse). Alternance Image à gauche / Texte à droite.
+Objectif : Montrer les photos des ateliers (sans visages d'enfants reconnaissables si possible) et expliquer la démarche humanitaire.
+F. Galerie (GalleryComponent)
+Layout : Maçonnerie (Masonry Grid) type Pinterest. Mélange de photos de produits, d'ateliers et d'événements.
+Filtres : Simple filtre JS (Atelier, Création, Humanitaire).
+G. Contact (ContactComponent)
+Layout : 2 Colonnes.
+Gauche : Infos (Tel, WhatsApp, Email, Localisation).
+Droite : Formulaire (Nom, Tel, Email, Sujet, Message).
+Logique : Submit connectée à POST /contact. Afficher un Toast/Notification de succès.
+5. API & MODÈLES DE DONNÉES
+Utilise ces interfaces TypeScript exactes pour typer les réponses du backend. Le backend renvoie toujours { success: true, data: ... }.
+Base URL : http://localhost:5000/api/v1/spiritemeraude
+code
+TypeScript
+// Réponse API Générique
+export interface ApiResponse<T> {
+  success: boolean;
+  message?: string;
+  data: T;
+  pagination?: { page: number; limit: number; total: number };
+}
+
+// 1. Product
+export interface Product {
+  _id: string;
+  name: string;
+  category: 'sac' | 'trousse' | 'sandale' | 'accessoire' | 'personnalise' | 'saisonnier';
+  price: number;
+  description: string;
+  images: string[];
+  isFeatured: boolean;
+  inStock: boolean;
+  slug: string;
+}
+
+// 2. Formation
+export interface Formation {
+  _id: string;
+  name: string;
+  description: string;
+  duration: string;
+  price: number;
+  materials: string;
+  image?: string;
+  nextSession?: Date;
+}
+
+// 3. Impact
+export interface Impact {
+  _id: string;
+  name: string;
+  description: string;
+  images: string[];
+  date: Date;
+  location?: string;
+}
+
+// 4. Gallery
+export interface GalleryPhoto {
+  _id: string;
+  name?: string;
+  category: 'atelier' | 'creation' | 'humanitaire' | 'autre';
+  imageUrl: string;
+}
+
+// 5. Contact Payload
+export interface ContactMessage {
+  name: string;
+  phone: string;
+  email?: string;
+  subject?: string;
+  message: string;
+}
+TA MISSION
+Génère le code Angular pour :
+Le fichier api.service.ts générique.
+Le routes.ts avec le Lazy Loading.
+Le ProductListComponent (TS + HTML + SCSS) complet avec la logique WhatsApp.
+Le HomeComponent avec la section Hero Split-Screen.
+Sois précis, professionnel et respecte le Design System imposé.
