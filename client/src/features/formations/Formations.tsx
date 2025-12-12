@@ -222,10 +222,10 @@ export default function Formations() {
                 <Package className="w-6 h-6 text-primary" />
               </div>
               <h3 className="font-serif font-semibold text-foreground mb-3">
-                Prévoir votre matériel
+                Matériel Fourni
               </h3>
               <p className="text-sm text-muted-foreground">
-                Le matériel nécessaire à l’apprentissage n’est pas inclus et doit être apporté par le participant.
+                Tout le nécessaire pour apprendre dans les meilleures conditions, inclus dans le prix
               </p>
             </Card>
             

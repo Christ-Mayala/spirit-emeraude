@@ -22,12 +22,21 @@ function AdminContactMessagesContent() {
       const res = await fetch(url, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      if (!res.ok) {
-        const text = await res.text();
-        throw new Error(text || "Erreur lors de la récupération des messages");
+
+      const text = await res.text();
+      let json: any;
+      try {
+        json = text ? JSON.parse(text) : null;
+      } catch {
+        throw new Error(text || "Réponse invalide du serveur");
       }
-      const json = await res.json();
-      return json.data as ContactMessage[];
+
+      if (!res.ok || !json?.success) {
+        throw new Error(json?.message || "Erreur lors de la récupération des messages");
+      }
+
+      const data = (json.data || []) as any[];
+      return data.map((m) => ({ ...m, id: m.id ?? m._id })) as ContactMessage[];
     },
   });
 
@@ -40,9 +49,17 @@ function AdminContactMessagesContent() {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
-      if (!res.ok) {
-        const text = await res.text();
-        throw new Error(text || "Erreur lors de la suppression du message");
+
+      const text = await res.text();
+      let json: any;
+      try {
+        json = text ? JSON.parse(text) : null;
+      } catch {
+        throw new Error(text || "Réponse invalide du serveur");
+      }
+
+      if (!res.ok || !json?.success) {
+        throw new Error(json?.message || "Erreur lors de la suppression du message");
       }
     },
     onSuccess: () => {
