@@ -11,7 +11,7 @@ export const API_PREFIX =
   import.meta.env.VITE_API_PREFIX ?? "/api/spiritemeraude";
 
 // Construit une URL complète vers l'API à partir d'un chemin relatif
-// au préfixe applicatif (ex: "/product", "/formation").
+// au préfixe applicatif (ex: "/product", "/atelier").
 export function buildApiUrl(path: string): string {
   const normalized = path.startsWith("/") ? path : `/${path}`;
   return `${API_BASE_URL}${API_PREFIX}${normalized}`;

@@ -152,7 +152,7 @@ export default function Contact() {
     }, 
     { 
       q: "Proposez-vous des réductions pour les groupes ?", 
-      a: "Oui, contactez-nous pour les commandes groupées et formations." 
+      a: "Oui, contactez-nous pour les commandes groupées et ateliers." 
     }
   ];
 
@@ -393,7 +393,7 @@ export default function Contact() {
                   <ul className="space-y-2 md:space-y-3">
                     {[
                       "Soutien aux femmes entrepreneures",
-                      "Formations artisanales gratuites",
+                      "Ateliers artisanaux gratuits",
                       "Reversement aux orphelinats",
                       "Production éco-responsable"
                     ].map((item, index) => (

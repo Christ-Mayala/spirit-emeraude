@@ -7,7 +7,7 @@ import { Layout } from "@/features/layout/Layout";
 import Home from "@/features/home/Home";
 import Shop from "@/features/shop/Shop";
 import ProductDetail from "@/features/shop/ProductDetail";  // <-- IMPORT OBLIGATOIRE
-import Formations from "@/features/formations/Formations";
+import Ateliers from "@/features/ateliers/Ateliers";
 import ImpactPage from "@/features/impact/Impact";
 import Gallery from "@/features/gallery/Gallery";
 import Contact from "@/features/contact/Contact";
@@ -16,7 +16,7 @@ import Login from "@/features/auth/Login";
 import {
   Dashboard,
   AdminProducts,
-  AdminFormations,
+  AdminAteliers,
   AdminImpacts,
   AdminGallery,
   AdminContactMessages,
@@ -36,14 +36,14 @@ function Router() {
           {(params) => <ProductDetail id={params.id} />}
         </Route>
 
-        <Route path="/formations" component={Formations} />
+        <Route path="/ateliers" component={Ateliers} />
         <Route path="/impact" component={ImpactPage} />
         <Route path="/galerie" component={Gallery} />
         <Route path="/contact" component={Contact} />
         <Route path="/login" component={Login} />
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/dashboard/products" component={AdminProducts} />
-        <Route path="/dashboard/formations" component={AdminFormations} />
+        <Route path="/dashboard/ateliers" component={AdminAteliers} />
         <Route path="/dashboard/impacts" component={AdminImpacts} />
         <Route path="/dashboard/gallery" component={AdminGallery} />
         <Route path="/dashboard/contact-messages" component={AdminContactMessages} />

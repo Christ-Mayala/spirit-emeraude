@@ -1,19 +1,17 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "@/core/hooks/use-auth";
 import { api } from "@/core/api/api";
 import { buildApiUrl } from "@/core/lib/queryClient";
-import type { Impact } from "@shared/schema";
+import type { Atelier } from "@shared/schema";
 import { Card, CardContent } from "@/core/ui/card";
 import { Button } from "@/core/ui/button";
 import { Input } from "@/core/ui/input";
 import { Textarea } from "@/core/ui/textarea";
 import { useToast } from "@/core/hooks/use-toast";
 import {
-  Heart,
+  GraduationCap,
   Trash2,
-  Upload,
-  MapPin,
   Calendar as CalendarIcon,
   X,
   Loader2,
@@ -31,52 +29,52 @@ import {
   DialogTitle,
 } from "@/core/ui/dialog";
 
-interface ImpactFormState {
+interface AtelierFormState {
   name: string;
   description: string;
-  date: string;
-  location: string;
+  duration: string;
+  nextSession: string;
   images: File[];
   videos: File[];
 }
 
-interface ImpactEditState {
+interface AtelierEditState {
   id: string;
   name: string;
   description: string;
-  date: string;
-  location: string;
+  duration: string;
+  nextSession: string;
   newImages: File[];
   newVideos: File[];
-  existingImages: string[];
-  existingVideos: string[];
 }
 
-function AdminImpactsContent() {
+function AdminAteliersContent() {
   const { token, user } = useAuth();
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
-  const [createState, setCreateState] = useState<ImpactFormState>({
+  const isAdmin = user?.role === "admin";
+
+  const [createState, setCreateState] = useState<AtelierFormState>({
     name: "",
     description: "",
-    date: "",
-    location: "",
+    duration: "",
+    nextSession: "",
     images: [],
     videos: [],
   });
 
-  const [imagePreviews, setImagePreviews] = useState<string[]>([]);
-  const [videoPreviews, setVideoPreviews] = useState<string[]>([]);
+  const [createImagePreviews, setCreateImagePreviews] = useState<string[]>([]);
+  const [createVideoPreviews, setCreateVideoPreviews] = useState<string[]>([]);
 
   const [editOpen, setEditOpen] = useState(false);
-  const [editState, setEditState] = useState<ImpactEditState | null>(null);
+  const [editState, setEditState] = useState<AtelierEditState | null>(null);
   const [editImagePreviews, setEditImagePreviews] = useState<string[]>([]);
   const [editVideoPreviews, setEditVideoPreviews] = useState<string[]>([]);
 
-  const { data: impacts, isLoading } = useQuery<Impact[]>({
-    queryKey: ["admin-impacts"],
-    queryFn: () => api.impact.list(),
+  const { data: ateliers, isLoading } = useQuery<Atelier[]>({
+    queryKey: ["admin-ateliers"],
+    queryFn: () => api.atelier.list(),
   });
 
   const createMutation = useMutation({
@@ -86,12 +84,12 @@ function AdminImpactsContent() {
       const formData = new FormData();
       formData.append("name", createState.name);
       formData.append("description", createState.description);
-      if (createState.date) formData.append("date", createState.date);
-      if (createState.location) formData.append("location", createState.location);
+      if (createState.duration) formData.append("duration", createState.duration);
+      if (createState.nextSession) formData.append("nextSession", createState.nextSession);
       createState.images.forEach((f) => formData.append("images", f));
       createState.videos.forEach((f) => formData.append("videos", f));
 
-      const url = buildApiUrl("/impact");
+      const url = buildApiUrl("/atelier");
       const res = await fetch(url, {
         method: "POST",
         headers: { Authorization: `Bearer ${token}` },
@@ -100,17 +98,17 @@ function AdminImpactsContent() {
 
       if (!res.ok) {
         const text = await res.text();
-        throw new Error(text || "Erreur lors de la création de l'action");
+        throw new Error(text || "Erreur lors de la création de l'atelier");
       }
 
       return res.json();
     },
     onSuccess: () => {
-      toast({ title: "Action sociale créée" });
-      queryClient.invalidateQueries({ queryKey: ["admin-impacts"] });
-      setCreateState({ name: "", description: "", date: "", location: "", images: [], videos: [] });
-      setImagePreviews([]);
-      setVideoPreviews([]);
+      toast({ title: "Atelier créé" });
+      queryClient.invalidateQueries({ queryKey: ["admin-ateliers"] });
+      setCreateState({ name: "", description: "", duration: "", nextSession: "", images: [], videos: [] });
+      setCreateImagePreviews([]);
+      setCreateVideoPreviews([]);
     },
     onError: (err: unknown) => {
       toast({
@@ -122,18 +120,18 @@ function AdminImpactsContent() {
   });
 
   const updateMutation = useMutation({
-    mutationFn: async (payload: ImpactEditState) => {
+    mutationFn: async (payload: AtelierEditState) => {
       if (!token) throw new Error("Non autorisé");
 
       const formData = new FormData();
       formData.append("name", payload.name);
       formData.append("description", payload.description);
-      if (payload.date) formData.append("date", payload.date);
-      if (payload.location) formData.append("location", payload.location);
+      if (payload.duration) formData.append("duration", payload.duration);
+      if (payload.nextSession) formData.append("nextSession", payload.nextSession);
       payload.newImages.forEach((f) => formData.append("images", f));
       payload.newVideos.forEach((f) => formData.append("videos", f));
 
-      const url = buildApiUrl(`/impact/${payload.id}`);
+      const url = buildApiUrl(`/atelier/${payload.id}`);
       const res = await fetch(url, {
         method: "PUT",
         headers: { Authorization: `Bearer ${token}` },
@@ -148,8 +146,8 @@ function AdminImpactsContent() {
       return res.json();
     },
     onSuccess: () => {
-      toast({ title: "Action sociale modifiée" });
-      queryClient.invalidateQueries({ queryKey: ["admin-impacts"] });
+      toast({ title: "Atelier modifié" });
+      queryClient.invalidateQueries({ queryKey: ["admin-ateliers"] });
       setEditOpen(false);
       setEditState(null);
       setEditImagePreviews([]);
@@ -167,7 +165,7 @@ function AdminImpactsContent() {
   const deleteMutation = useMutation({
     mutationFn: async (id: string) => {
       if (!token) throw new Error("Non autorisé");
-      const url = buildApiUrl(`/impact/${id}`);
+      const url = buildApiUrl(`/atelier/${id}`);
       const res = await fetch(url, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
@@ -178,8 +176,8 @@ function AdminImpactsContent() {
       }
     },
     onSuccess: () => {
-      toast({ title: "Action sociale supprimée" });
-      queryClient.invalidateQueries({ queryKey: ["admin-impacts"] });
+      toast({ title: "Atelier supprimé" });
+      queryClient.invalidateQueries({ queryKey: ["admin-ateliers"] });
     },
     onError: (err: unknown) => {
       toast({
@@ -190,58 +188,56 @@ function AdminImpactsContent() {
     },
   });
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onCreateImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
-    const newImages = Array.from(e.target.files);
-    setCreateState((prev) => ({ ...prev, images: [...prev.images, ...newImages] }));
+    const files = Array.from(e.target.files);
+    setCreateState((p) => ({ ...p, images: [...p.images, ...files] }));
 
-    newImages.forEach((file) => {
-      const reader = new FileReader();
-      reader.onloadend = () => setImagePreviews((prev) => [...prev, reader.result as string]);
-      reader.readAsDataURL(file);
+    files.forEach((file) => {
+      const r = new FileReader();
+      r.onloadend = () => setCreateImagePreviews((prev) => [...prev, r.result as string]);
+      r.readAsDataURL(file);
     });
   };
 
-  const handleVideoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onCreateVideoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
-    const newVideos = Array.from(e.target.files);
-    setCreateState((prev) => ({ ...prev, videos: [...prev.videos, ...newVideos] }));
+    const files = Array.from(e.target.files);
+    setCreateState((p) => ({ ...p, videos: [...p.videos, ...files] }));
 
-    newVideos.forEach((file) => {
-      const reader = new FileReader();
-      reader.onloadend = () => setVideoPreviews((prev) => [...prev, reader.result as string]);
-      reader.readAsDataURL(file);
+    files.forEach((file) => {
+      const r = new FileReader();
+      r.onloadend = () => setCreateVideoPreviews((prev) => [...prev, r.result as string]);
+      r.readAsDataURL(file);
     });
   };
 
-  const removeImage = (index: number) => {
-    setCreateState((prev) => ({ ...prev, images: prev.images.filter((_, i) => i !== index) }));
-    setImagePreviews((prev) => prev.filter((_, i) => i !== index));
+  const removeCreateImage = (index: number) => {
+    setCreateState((p) => ({ ...p, images: p.images.filter((_, i) => i !== index) }));
+    setCreateImagePreviews((p) => p.filter((_, i) => i !== index));
   };
 
-  const removeVideo = (index: number) => {
-    setCreateState((prev) => ({ ...prev, videos: prev.videos.filter((_, i) => i !== index) }));
-    setVideoPreviews((prev) => prev.filter((_, i) => i !== index));
+  const removeCreateVideo = (index: number) => {
+    setCreateState((p) => ({ ...p, videos: p.videos.filter((_, i) => i !== index) }));
+    setCreateVideoPreviews((p) => p.filter((_, i) => i !== index));
   };
 
-  const openEdit = (impact: Impact) => {
+  const openEdit = (atelier: Atelier) => {
     setEditState({
-      id: impact.id,
-      name: impact.name,
-      description: impact.description,
-      date: impact.date ? impact.date.slice(0, 10) : "",
-      location: impact.location ?? "",
+      id: atelier.id,
+      name: atelier.name,
+      description: atelier.description,
+      duration: atelier.duration ?? "",
+      nextSession: atelier.nextSession ?? "",
       newImages: [],
       newVideos: [],
-      existingImages: impact.images ?? [],
-      existingVideos: impact.videos ?? [],
     });
     setEditImagePreviews([]);
     setEditVideoPreviews([]);
     setEditOpen(true);
   };
 
-  const handleEditImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onEditImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
     const files = Array.from(e.target.files);
     setEditState((p) => (p ? { ...p, newImages: [...p.newImages, ...files] } : p));
@@ -253,7 +249,7 @@ function AdminImpactsContent() {
     });
   };
 
-  const handleEditVideoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onEditVideoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
     const files = Array.from(e.target.files);
     setEditState((p) => (p ? { ...p, newVideos: [...p.newVideos, ...files] } : p));
@@ -275,17 +271,12 @@ function AdminImpactsContent() {
     setEditVideoPreviews((p) => p.filter((_, i) => i !== index));
   };
 
+  const canCreate = useMemo(() => Boolean(createState.name && createState.description), [createState.name, createState.description]);
+
   const submitEdit = () => {
     if (!editState) return;
     updateMutation.mutate(editState);
   };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    createMutation.mutate();
-  };
-
-  const isAdmin = user?.role === "admin";
 
   return (
     <div className="min-h-screen py-8 md:py-12">
@@ -293,11 +284,11 @@ function AdminImpactsContent() {
         <header className="space-y-2 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
             <h1 className="font-serif text-2xl md:text-3xl font-bold flex items-center gap-2">
-              <Heart className="w-6 h-6 text-primary" />
-              Gestion de l'impact social
+              <GraduationCap className="w-6 h-6 text-primary" />
+              Gestion des ateliers
             </h1>
             <p className="text-muted-foreground text-sm md:text-base">
-              L'admin peut ajouter, modifier ou supprimer les actions sociales.
+              L'admin peut ajouter, modifier ou supprimer les ateliers.
             </p>
           </div>
         </header>
@@ -305,47 +296,49 @@ function AdminImpactsContent() {
         <section className="grid grid-cols-1 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] gap-6 items-start">
           <Card className="order-2 lg:order-1">
             <CardContent className="p-4 md:p-6 space-y-4">
-              <h2 className="font-semibold text-lg">Nouvelle action</h2>
-              <form className="space-y-4" onSubmit={handleSubmit}>
+              <h2 className="font-semibold text-lg">Nouvel atelier</h2>
+              <form
+                className="space-y-4"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  createMutation.mutate();
+                }}
+              >
                 <div className="space-y-1">
-                  <label className="text-sm font-medium">Titre</label>
-                  <Input value={createState.name} onChange={(e) => setCreateState((p) => ({ ...p, name: e.target.value }))} required />
+                  <label className="text-sm font-medium">Nom</label>
+                  <Input value={createState.name} onChange={(e) => setCreateState((p) => ({ ...p, name: e.target.value }))} />
                 </div>
 
                 <div className="space-y-1">
                   <label className="text-sm font-medium">Description</label>
-                  <Textarea value={createState.description} onChange={(e) => setCreateState((p) => ({ ...p, description: e.target.value }))} rows={3} required />
+                  <Textarea value={createState.description} onChange={(e) => setCreateState((p) => ({ ...p, description: e.target.value }))} rows={3} />
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-1">
-                    <label className="text-sm font-medium flex items-center gap-2">
-                      Date
-                      <CalendarIcon className="w-4 h-4" />
-                    </label>
-                    <Input type="date" value={createState.date} onChange={(e) => setCreateState((p) => ({ ...p, date: e.target.value }))} />
-                  </div>
-                  <div className="space-y-1">
-                    <label className="text-sm font-medium flex items-center gap-2">
-                      Lieu
-                      <MapPin className="w-4 h-4" />
-                    </label>
-                    <Input value={createState.location} onChange={(e) => setCreateState((p) => ({ ...p, location: e.target.value }))} />
-                  </div>
+                <div className="space-y-1">
+                  <label className="text-sm font-medium">Durée (optionnel)</label>
+                  <Input value={createState.duration} onChange={(e) => setCreateState((p) => ({ ...p, duration: e.target.value }))} />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-sm font-medium flex items-center gap-2">
+                    Prochaine date
+                    <CalendarIcon className="w-4 h-4" />
+                  </label>
+                  <Input type="date" value={createState.nextSession} onChange={(e) => setCreateState((p) => ({ ...p, nextSession: e.target.value }))} />
                 </div>
 
                 <div className="space-y-1">
                   <label className="text-sm font-medium flex items-center gap-2">
                     Images
-                    <Upload className="w-4 h-4 opacity-70" />
+                    <ImageIcon className="w-4 h-4 opacity-70" />
                   </label>
-                  <Input type="file" multiple accept="image/*" onChange={handleImageChange} />
-                  {imagePreviews.length > 0 && (
+                  <Input type="file" multiple accept="image/*" onChange={onCreateImageChange} />
+                  {createImagePreviews.length > 0 && (
                     <div className="grid grid-cols-3 gap-2 mt-2">
-                      {imagePreviews.map((src, idx) => (
+                      {createImagePreviews.map((src, idx) => (
                         <div key={idx} className="relative group">
                           <img src={src} alt={`img-${idx}`} className="w-full h-24 object-cover rounded border" />
-                          <button type="button" onClick={() => removeImage(idx)} className="absolute -top-2 -right-2 bg-destructive text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition">
+                          <button type="button" onClick={() => removeCreateImage(idx)} className="absolute -top-2 -right-2 bg-destructive text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition">
                             <X className="w-3 h-3" />
                           </button>
                         </div>
@@ -357,15 +350,15 @@ function AdminImpactsContent() {
                 <div className="space-y-1">
                   <label className="text-sm font-medium flex items-center gap-2">
                     Vidéos
-                    <Upload className="w-4 h-4 opacity-70" />
+                    <Video className="w-4 h-4 opacity-70" />
                   </label>
-                  <Input type="file" multiple accept="video/*" onChange={handleVideoChange} />
-                  {videoPreviews.length > 0 && (
+                  <Input type="file" multiple accept="video/*" onChange={onCreateVideoChange} />
+                  {createVideoPreviews.length > 0 && (
                     <div className="grid grid-cols-2 gap-2 mt-2">
-                      {videoPreviews.map((src, idx) => (
+                      {createVideoPreviews.map((src, idx) => (
                         <div key={idx} className="relative group">
                           <video src={src} controls className="w-full h-24 object-cover rounded border" />
-                          <button type="button" onClick={() => removeVideo(idx)} className="absolute -top-2 -right-2 bg-destructive text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition">
+                          <button type="button" onClick={() => removeCreateVideo(idx)} className="absolute -top-2 -right-2 bg-destructive text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition">
                             <X className="w-3 h-3" />
                           </button>
                         </div>
@@ -374,9 +367,9 @@ function AdminImpactsContent() {
                   )}
                 </div>
 
-                <Button type="submit" className="w-full" disabled={createMutation.isPending || !isAdmin}>
+                <Button type="submit" className="w-full" disabled={!isAdmin || createMutation.isPending || !canCreate}>
                   {createMutation.isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                  {createMutation.isPending ? "Création..." : "Ajouter l'action"}
+                  {createMutation.isPending ? "Création..." : "Ajouter l'atelier"}
                 </Button>
               </form>
             </CardContent>
@@ -384,62 +377,59 @@ function AdminImpactsContent() {
 
           <Card className="order-1 lg:order-2">
             <CardContent className="p-4 md:p-6 space-y-4">
-              <h2 className="font-semibold text-lg">Actions existantes</h2>
+              <h2 className="font-semibold text-lg">Ateliers existants</h2>
               {isLoading ? (
                 <div className="flex items-center justify-center py-8">
                   <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
                 </div>
-              ) : !impacts || impacts.length === 0 ? (
-                <p className="text-sm text-muted-foreground">Aucune action pour le moment.</p>
+              ) : !ateliers || ateliers.length === 0 ? (
+                <p className="text-sm text-muted-foreground">Aucun atelier pour le moment.</p>
               ) : (
                 <div className="space-y-4">
-                  {impacts.map((impact) => (
-                    <div key={impact.id} className="border rounded-md overflow-hidden flex flex-col md:flex-row gap-4">
-                      {impact.images?.[0] && (
+                  {ateliers.map((atelier) => (
+                    <div key={atelier.id} className="border rounded-md overflow-hidden flex flex-col md:flex-row gap-4">
+                      {atelier.images?.[0] && (
                         <div className="w-full md:w-48 lg:w-56 h-40 md:h-auto flex-shrink-0 bg-muted overflow-hidden">
-                          <img src={impact.images[0]} alt={impact.name} className="w-full h-full object-cover" />
+                          <img src={atelier.images[0]} alt={atelier.name} className="w-full h-full object-cover" />
                         </div>
                       )}
                       <div className="p-3 space-y-2 flex-1 flex flex-col">
                         <div className="flex items-start justify-between gap-2">
                           <div>
-                            <p className="font-medium text-sm">{impact.name}</p>
-                            <p className="text-xs text-muted-foreground flex items-center gap-1">
-                              <CalendarIcon className="w-3 h-3" />
-                              {new Date(impact.date).toLocaleDateString("fr-FR", {
-                                day: "numeric",
-                                month: "long",
-                                year: "numeric",
-                              })}
-                            </p>
-                            {impact.location && (
-                              <p className="text-xs text-muted-foreground flex items-center gap-1">
-                                <MapPin className="w-3 h-3" />
-                                {impact.location}
-                              </p>
-                            )}
+                            <p className="font-medium text-sm">{atelier.name}</p>
+                            {atelier.duration && <p className="text-xs text-muted-foreground">{atelier.duration}</p>}
                           </div>
                         </div>
-                        <p className="text-xs text-muted-foreground line-clamp-3">{impact.description}</p>
+                        <p className="text-xs text-muted-foreground line-clamp-2">{atelier.description}</p>
                         <div className="flex gap-3 text-xs text-muted-foreground">
-                          {impact.images && (
+                          {atelier.images && atelier.images.length > 0 && (
                             <span className="flex items-center gap-1">
                               <ImageIcon className="w-3 h-3" />
-                              {impact.images.length}
+                              {atelier.images.length}
                             </span>
                           )}
-                          {impact.videos && impact.videos.length > 0 && (
+                          {atelier.videos && atelier.videos.length > 0 && (
                             <span className="flex items-center gap-1">
                               <Video className="w-3 h-3" />
-                              {impact.videos.length}
+                              {atelier.videos.length}
                             </span>
                           )}
                         </div>
+                        {atelier.nextSession && (
+                          <p className="text-xs text-muted-foreground flex items-center gap-1 mt-auto">
+                            <CalendarIcon className="w-3 h-3" />
+                            {new Date(atelier.nextSession).toLocaleDateString("fr-FR", {
+                              day: "numeric",
+                              month: "long",
+                              year: "numeric",
+                            })}
+                          </p>
+                        )}
                         <div className="flex justify-end pt-2 mt-auto gap-2">
-                          <Button size="icon" variant="outline" className="h-8 w-8" disabled={!isAdmin} onClick={() => openEdit(impact)}>
+                          <Button size="icon" variant="outline" className="h-8 w-8" disabled={!isAdmin} onClick={() => openEdit(atelier)}>
                             <Pencil className="w-4 h-4" />
                           </Button>
-                          <Button size="icon" variant="outline" className="h-8 w-8" disabled={deleteMutation.isPending || !isAdmin} onClick={() => deleteMutation.mutate(impact.id)}>
+                          <Button size="icon" variant="outline" className="h-8 w-8" disabled={deleteMutation.isPending || !isAdmin} onClick={() => deleteMutation.mutate(atelier.id)}>
                             {deleteMutation.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <Trash2 className="w-4 h-4" />}
                           </Button>
                         </div>
@@ -460,16 +450,16 @@ function AdminImpactsContent() {
             setEditVideoPreviews([]);
           }
         }}>
-          <DialogContent className="sm:max-w-3xl">
+          <DialogContent className="sm:max-w-2xl">
             <DialogHeader>
-              <DialogTitle>Modifier une action</DialogTitle>
-              <DialogDescription>Vous pouvez modifier le texte et remplacer les médias en ajoutant de nouveaux fichiers.</DialogDescription>
+              <DialogTitle>Modifier un atelier</DialogTitle>
+              <DialogDescription>Vous pouvez modifier les champs, et remplacer les médias en ajoutant de nouveaux fichiers.</DialogDescription>
             </DialogHeader>
 
             {editState && (
               <div className="space-y-4">
                 <div className="space-y-1">
-                  <label className="text-sm font-medium">Titre</label>
+                  <label className="text-sm font-medium">Nom</label>
                   <Input value={editState.name} onChange={(e) => setEditState((p) => (p ? { ...p, name: e.target.value } : p))} />
                 </div>
 
@@ -480,38 +470,18 @@ function AdminImpactsContent() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-1">
-                    <label className="text-sm font-medium">Date</label>
-                    <Input type="date" value={editState.date} onChange={(e) => setEditState((p) => (p ? { ...p, date: e.target.value } : p))} />
+                    <label className="text-sm font-medium">Durée</label>
+                    <Input value={editState.duration} onChange={(e) => setEditState((p) => (p ? { ...p, duration: e.target.value } : p))} />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-sm font-medium">Lieu</label>
-                    <Input value={editState.location} onChange={(e) => setEditState((p) => (p ? { ...p, location: e.target.value } : p))} />
+                    <label className="text-sm font-medium">Prochaine date</label>
+                    <Input type="date" value={editState.nextSession} onChange={(e) => setEditState((p) => (p ? { ...p, nextSession: e.target.value } : p))} />
                   </div>
                 </div>
 
-                {(editState.existingImages.length > 0 || editState.existingVideos.length > 0) && (
-                  <div className="space-y-2">
-                    <p className="text-sm font-medium">Médias actuels</p>
-                    {editState.existingImages.length > 0 && (
-                      <div className="grid grid-cols-3 gap-2">
-                        {editState.existingImages.slice(0, 6).map((src, idx) => (
-                          <img key={idx} src={src} alt={`existing-${idx}`} className="w-full h-20 object-cover rounded border" />
-                        ))}
-                      </div>
-                    )}
-                    {editState.existingVideos.length > 0 && (
-                      <div className="grid grid-cols-2 gap-2">
-                        {editState.existingVideos.slice(0, 2).map((src, idx) => (
-                          <video key={idx} src={src} controls className="w-full h-24 object-cover rounded border" />
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                )}
-
                 <div className="space-y-1">
                   <label className="text-sm font-medium">Nouvelles images (optionnel)</label>
-                  <Input type="file" multiple accept="image/*" onChange={handleEditImageChange} />
+                  <Input type="file" multiple accept="image/*" onChange={onEditImageChange} />
                   {editImagePreviews.length > 0 && (
                     <div className="grid grid-cols-3 gap-2 mt-2">
                       {editImagePreviews.map((src, idx) => (
@@ -528,7 +498,7 @@ function AdminImpactsContent() {
 
                 <div className="space-y-1">
                   <label className="text-sm font-medium">Nouvelles vidéos (optionnel)</label>
-                  <Input type="file" multiple accept="video/*" onChange={handleEditVideoChange} />
+                  <Input type="file" multiple accept="video/*" onChange={onEditVideoChange} />
                   {editVideoPreviews.length > 0 && (
                     <div className="grid grid-cols-2 gap-2 mt-2">
                       {editVideoPreviews.map((src, idx) => (
@@ -561,10 +531,10 @@ function AdminImpactsContent() {
   );
 }
 
-export default function AdminImpacts() {
+export default function AdminAteliers() {
   return (
     <RequireAuth>
-      <AdminImpactsContent />
+      <AdminAteliersContent />
     </RequireAuth>
   );
 }

@@ -9,7 +9,7 @@ import type { Impact } from "@shared/schema";
 import { api } from "@/core/api/api";
 
 const IMPACT_HERO_URL =
-  "/formation.jpeg";
+  "/atelier.jpeg";
 
 function ImpactSkeleton() {
   return (
@@ -343,12 +343,12 @@ export default function ImpactPage() {
                   </h2>
                 </div>
                 <p className="text-muted-foreground leading-relaxed">
-                  Nos formations permettent aux femmes d'acquérir un savoir-faire
+                  Nos ateliers permettent aux femmes d'acquérir un savoir-faire
                   précieux et de créer leur propre source de revenus. Nous croyons
                   que l'autonomie financière est la clé de l'émancipation.
                 </p>
                 <ul className="space-y-2 mt-4">
-                  {["Formation professionnelle complète", "Accompagnement personnalisé", "Création d'entreprise", "Suivi sur 2 ans"].map((item, index) => (
+                  {["Atelier pratique et complet", "Accompagnement personnalisé", "Création d'entreprise", "Suivi sur 2 ans"].map((item, index) => (
                     <li key={index} className="flex items-center gap-2 text-foreground/80">
                       <Star className="w-3 h-3 text-gold-muted" />
                       <span className="text-sm">{item}</span>

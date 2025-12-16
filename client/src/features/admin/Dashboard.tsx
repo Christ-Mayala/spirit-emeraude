@@ -13,7 +13,7 @@ function DashboardContent() {
             Tableau de bord Spirit Emeraude
           </h1>
           <p className="text-muted-foreground">
-            Gérez les contenus métiers exposés à vos clients : produits, formations,
+            Gérez les contenus métiers exposés à vos clients : produits, ateliers,
             impact social, galerie et messages de contact.
           </p>
         </header>
@@ -37,13 +37,13 @@ function DashboardContent() {
           <Card>
             <CardContent className="p-6 space-y-3">
               <GraduationCap className="w-6 h-6 text-primary" />
-              <h2 className="font-semibold">Formations</h2>
+              <h2 className="font-semibold">Ateliers</h2>
               <p className="text-sm text-muted-foreground">
-                Gérer les ateliers, tarifs et prochaines sessions.
+                Gérer les ateliers, images, vidéos et réalisations.
               </p>
-              <Link href="/dashboard/formations">
+              <Link href="/dashboard/ateliers">
                 <Button size="sm" variant="outline">
-                  Gérer les formations
+                  Gérer les ateliers
                 </Button>
               </Link>
             </CardContent>

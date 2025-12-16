@@ -20,10 +20,10 @@ const publicNavLinks = [
     description: "Nos créations"
   },
   { 
-    href: "/formations", 
-    label: "Formations", 
+    href: "/ateliers", 
+    label: "Ateliers", 
     icon: <GraduationCap className="w-4 h-4" />,
-    description: "Ateliers & Formations"
+    description: "Prochains ateliers"
   },
   { 
     href: "/impact", 
@@ -48,7 +48,7 @@ const publicNavLinks = [
 const adminNavLinks = [
   { href: "/dashboard", label: "Dashboard", icon: <Home className="w-4 h-4" /> },
   { href: "/dashboard/products", label: "Produits", icon: <ShoppingBag className="w-4 h-4" /> },
-  { href: "/dashboard/formations", label: "Formations", icon: <GraduationCap className="w-4 h-4" /> },
+  { href: "/dashboard/ateliers", label: "Ateliers", icon: <GraduationCap className="w-4 h-4" /> },
   { href: "/dashboard/impacts", label: "Impact", icon: <Heart className="w-4 h-4" /> },
   { href: "/dashboard/gallery", label: "Galerie", icon: <Images className="w-4 h-4" /> },
   { href: "/dashboard/contact-messages", label: "Messages", icon: <MessageCircle className="w-4 h-4" /> },

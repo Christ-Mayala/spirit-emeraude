@@ -39,7 +39,7 @@ export default function Login() {
     mutationFn: (values: z.infer<typeof loginSchema>) => login(values),
     onSuccess: () => {
       toast({ title: "Connexion réussie" });
-      navigate("/Dashboard");
+      navigate("/dashboard");
     },
     onError: () => {
       toast({

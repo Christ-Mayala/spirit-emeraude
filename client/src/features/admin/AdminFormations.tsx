@@ -9,7 +9,7 @@ import { Button } from "@/core/ui/button";
 import { Input } from "@/core/ui/input";
 import { Textarea } from "@/core/ui/textarea";
 import { useToast } from "@/core/hooks/use-toast";
-import { GraduationCap, Trash2, Upload, Calendar as CalendarIcon } from "lucide-react";
+import { GraduationCap, Trash2, Upload, Calendar as CalendarIcon, Loader2 } from "lucide-react";
 import RequireAuth from "@/features/auth/RequireAuth";
 
 interface FormationFormState {
@@ -36,6 +36,8 @@ function AdminFormationsContent() {
     nextSession: "",
     image: null,
   });
+
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
 
   const { data: formations, isLoading } = useQuery<Formation[]>({
     queryKey: ["admin-formations"],
@@ -85,6 +87,7 @@ function AdminFormationsContent() {
         nextSession: "",
         image: null,
       });
+      setImagePreview(null);
     },
     onError: (err: unknown) => {
       toast({
@@ -125,6 +128,18 @@ function AdminFormationsContent() {
     setFormState((prev) => ({ ...prev, [field]: value }));
   };
 
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setFormState((prev) => ({ ...prev, image: file }));
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     createMutation.mutate();
@@ -142,7 +157,7 @@ function AdminFormationsContent() {
               Gestion des formations
             </h1>
             <p className="text-muted-foreground text-sm md:text-base">
-              Créez et gérez les ateliers de Spirit Emeraude exposés sur le frontend.
+              Créez et gérez les formations à venir que vous proposez à vos clients.
             </p>
           </div>
         </header>
@@ -158,6 +173,7 @@ function AdminFormationsContent() {
                     value={formState.name}
                     onChange={(e) => handleChange("name", e.target.value)}
                     placeholder="Nom de la formation"
+                    required
                   />
                 </div>
 
@@ -168,6 +184,7 @@ function AdminFormationsContent() {
                     onChange={(e) => handleChange("description", e.target.value)}
                     rows={3}
                     placeholder="Description détaillée..."
+                    required
                   />
                 </div>
 
@@ -187,6 +204,7 @@ function AdminFormationsContent() {
                       value={formState.price}
                       onChange={(e) => handleChange("price", e.target.value)}
                       placeholder="85000"
+                      required
                     />
                   </div>
                 </div>
@@ -200,29 +218,37 @@ function AdminFormationsContent() {
                   />
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1.5fr)_minmax(0,2fr)] gap-4 items-center">
-                  <div className="space-y-1">
-                    <label className="text-sm font-medium flex items-center gap-2">
-                      Prochaine session
-                      <CalendarIcon className="w-4 h-4" />
-                    </label>
-                    <Input
-                      type="date"
-                      value={formState.nextSession}
-                      onChange={(e) => handleChange("nextSession", e.target.value)}
-                    />
-                  </div>
-                  <div className="space-y-1">
-                    <label className="text-sm font-medium flex items-center gap-2">
-                      Image
-                      <Upload className="w-4 h-4 opacity-70" />
-                    </label>
-                    <Input
-                      type="file"
-                      accept="image/*"
-                      onChange={(e) => handleChange("image", e.target.files?.[0] ?? null)}
-                    />
-                  </div>
+                <div className="space-y-1">
+                  <label className="text-sm font-medium flex items-center gap-2">
+                    Prochaine session
+                    <CalendarIcon className="w-4 h-4" />
+                  </label>
+                  <Input
+                    type="date"
+                    value={formState.nextSession}
+                    onChange={(e) => handleChange("nextSession", e.target.value)}
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-sm font-medium flex items-center gap-2">
+                    Image
+                    <Upload className="w-4 h-4 opacity-70" />
+                  </label>
+                  <Input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageChange}
+                  />
+                  {imagePreview && (
+                    <div className="mt-2">
+                      <img
+                        src={imagePreview}
+                        alt="Prévisualisation"
+                        className="w-full h-48 object-cover rounded border border-border"
+                      />
+                    </div>
+                  )}
                 </div>
 
                 <Button
@@ -230,6 +256,7 @@ function AdminFormationsContent() {
                   className="w-full"
                   disabled={createMutation.isPending || !isAdmin}
                 >
+                  {createMutation.isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                   {createMutation.isPending ? "Création..." : "Ajouter la formation"}
                 </Button>
               </form>
@@ -240,7 +267,9 @@ function AdminFormationsContent() {
             <CardContent className="p-4 md:p-6 space-y-4">
               <h2 className="font-semibold text-lg">Formations existantes</h2>
               {isLoading ? (
-                <p className="text-sm text-muted-foreground">Chargement des formations...</p>
+                <div className="flex items-center justify-center py-8">
+                  <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+                </div>
               ) : !formations || formations.length === 0 ? (
                 <p className="text-sm text-muted-foreground">Aucune formation pour le moment.</p>
               ) : (
@@ -252,7 +281,6 @@ function AdminFormationsContent() {
                     >
                       {formation.image && (
                         <div className="w-full md:w-48 lg:w-56 h-40 md:h-auto flex-shrink-0 bg-muted overflow-hidden">
-                          {/* Image dynamique renvoyée par DryAPI pour la formation */}
                           <img
                             src={formation.image}
                             alt={formation.name}
@@ -293,7 +321,11 @@ function AdminFormationsContent() {
                             disabled={deleteMutation.isPending || !isAdmin}
                             onClick={() => deleteMutation.mutate(formation.id)}
                           >
-                            <Trash2 className="w-4 h-4" />
+                            {deleteMutation.isPending ? (
+                              <Loader2 className="w-4 h-4 animate-spin" />
+                            ) : (
+                              <Trash2 className="w-4 h-4" />
+                            )}
                           </Button>
                         </div>
                       </div>

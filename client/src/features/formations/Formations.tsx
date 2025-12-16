@@ -161,7 +161,7 @@ export default function Formations() {
               className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-tight"
               data-testid="formations-title"
             >
-              Nos Formations
+              Nos Ateliers
             </h1>
             
             <p className="text-lg text-muted-foreground leading-relaxed mb-10">
@@ -171,9 +171,9 @@ export default function Formations() {
             {/* Statistiques */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
               {[
-                { value: totalFormations, suffix: "", label: "Formations", icon: GraduationCap, color: "text-gold-muted" },
-                { value: 150, suffix: "+", label: "Apprenants", icon: Users, color: "text-primary" },
-                { value: upcomingSessions, suffix: "", label: "Sessions à venir", icon: Calendar, color: "text-primary" }
+                { value: totalFormations, suffix: "", label: "Ateliers", icon: GraduationCap, color: "text-gold-muted" },
+                { value: 150, suffix: "+", label: "Participants", icon: Users, color: "text-primary" },
+                { value: upcomingSessions, suffix: "", label: "Réalisations", icon: Calendar, color: "text-primary" }
               ].map((stat, index) => (
                 <div 
                   key={index}
@@ -255,8 +255,8 @@ export default function Formations() {
             </h2>
           </div>
           <p className="text-lg text-muted-foreground max-w-3xl">
-            Choisissez la formation qui correspond à vos aspirations. Tous nos ateliers sont 
-            conçus pour vous donner les compétences nécessaires à l'autonomie professionnelle.
+            Découvrez nos réalisations passées à travers des photos et vidéos de nos ateliers. 
+            Chaque atelier témoigne de notre engagement à partager notre savoir-faire artisanal.
           </p>
         </div>
 
@@ -278,19 +278,26 @@ export default function Formations() {
                 data-testid={`formation-card-${formation.id}`}
               >
                 <div className="flex flex-col md:flex-row">
-                  {formation.image && (
+                  {formation.images && formation.images.length > 0 && (
                     <div className="relative w-full md:w-72 h-56 md:h-auto overflow-hidden">
                       <img
-                        src={formation.image}
+                        src={formation.images[0]}
                         alt={formation.name}
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                       <div className="absolute top-3 left-3">
                         <Badge className="bg-gold-muted text-white">
                           <Award className="w-3 h-3 mr-1" />
-                          Formation
+                          Atelier
                         </Badge>
                       </div>
+                      {formation.images.length > 1 && (
+                        <div className="absolute bottom-3 right-3">
+                          <Badge className="bg-background/90 text-foreground">
+                            +{formation.images.length - 1} photos
+                          </Badge>
+                        </div>
+                      )}
                     </div>
                   )}
                   
@@ -354,6 +361,38 @@ export default function Formations() {
                         )}
                       </div>
 
+                      {formation.images && formation.images.length > 1 && (
+                        <div className="pt-4 border-t border-border">
+                          <p className="text-sm font-medium text-muted-foreground mb-2">Galerie</p>
+                          <div className="grid grid-cols-4 gap-2">
+                            {formation.images.slice(1, 5).map((img, idx) => (
+                              <img
+                                key={idx}
+                                src={img}
+                                alt={`${formation.name} ${idx + 2}`}
+                                className="w-full h-16 object-cover rounded border border-border"
+                              />
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                      {formation.videos && formation.videos.length > 0 && (
+                        <div className="pt-4 border-t border-border">
+                          <p className="text-sm font-medium text-muted-foreground mb-2">Vidéos ({formation.videos.length})</p>
+                          <div className="grid grid-cols-2 gap-2">
+                            {formation.videos.slice(0, 2).map((video, idx) => (
+                              <video
+                                key={idx}
+                                src={video}
+                                controls
+                                className="w-full h-24 object-cover rounded border border-border"
+                              />
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
                       <div className="flex items-center justify-between pt-4 border-t border-border">
                         <div className="flex items-center gap-4">
                           <div className="flex items-center gap-1">
@@ -374,7 +413,7 @@ export default function Formations() {
                             data-testid={`button-register-${formation.id}`}
                           >
                             <MessageCircle className="w-4 h-4 mr-2" />
-                            S'inscrire maintenant
+                            Nous contacter
                           </Button>
                         </a>
                       </div>

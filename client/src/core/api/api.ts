@@ -7,7 +7,7 @@ import type {
   ApiResponse,
   Product,
   ProductCategory,
-  Formation,
+  Atelier,
   Impact,
   GalleryPhoto,
   GalleryCategory,
@@ -32,9 +32,9 @@ const PATHS = {
     LIST: "/product",
     DETAIL: (id: string) => `/product/${id}`,
   },
-  FORMATION: {
-    LIST: "/formation",
-    DETAIL: (id: string) => `/formation/${id}`,
+  ATELIER: {
+    LIST: "/atelier",
+    DETAIL: (id: string) => `/atelier/${id}`,
   },
   IMPACT: {
     LIST: "/impact",
@@ -59,9 +59,9 @@ export const ENDPOINTS = {
     LIST: `${API_PREFIX}${PATHS.PRODUCT.LIST}`,
     DETAIL: (id: string) => `${API_PREFIX}${PATHS.PRODUCT.DETAIL(id)}`,
   },
-  FORMATION: {
-    LIST: `${API_PREFIX}${PATHS.FORMATION.LIST}`,
-    DETAIL: (id: string) => `${API_PREFIX}${PATHS.FORMATION.DETAIL(id)}`,
+  ATELIER: {
+    LIST: `${API_PREFIX}${PATHS.ATELIER.LIST}`,
+    DETAIL: (id: string) => `${API_PREFIX}${PATHS.ATELIER.DETAIL(id)}`,
   },
   IMPACT: {
     LIST: `${API_PREFIX}${PATHS.IMPACT.LIST}`,
@@ -164,9 +164,9 @@ export const api = {
     detail: (id: string) => getOne<Product>(PATHS.PRODUCT.DETAIL(id)),
   },
 
-  formation: {
-    list: () => getList<Formation>(PATHS.FORMATION.LIST),
-    detail: (id: string) => getOne<Formation>(PATHS.FORMATION.DETAIL(id)),
+  atelier: {
+    list: () => getList<Atelier>(PATHS.ATELIER.LIST),
+    detail: (id: string) => getOne<Atelier>(PATHS.ATELIER.DETAIL(id)),
   },
 
   impact: {

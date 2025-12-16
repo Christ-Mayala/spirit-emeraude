@@ -5,7 +5,7 @@ import { ArrowRight, Heart, Users, Sparkles, Award, ChevronRight, ShoppingBag, S
 
 // Images de décor statiques : ici on utilise des URLs publiques pour éviter
 // de dépendre de fichiers locaux absents du projet. Les visuels métier
-// dynamiques (produits, formations, impact, galerie) viennent eux de DryAPI.
+// dynamiques (produits, ateliers, impact, galerie) viennent eux de DryAPI.
 const HERO_IMAGE_URL =
   "/bg.jpg";
 const FOUNDER_IMAGE_URL =
@@ -15,7 +15,7 @@ const BAG_IMAGE_URL =
 const SANDALS_IMAGE_URL =
   "/sandale.jpg";
 const WORKSHOP_IMAGE_URL =
-  "/formation.jpeg";
+  "/atelier.jpeg";
 
 function Counter({ end, duration = 2000, suffix = "" }: { end: number; duration?: number; suffix?: string }) {
   const [count, setCount] = useState(0);
@@ -129,14 +129,14 @@ export default function Home() {
                   </span>
                 </Button>
               </Link>
-              <Link href="/formations">
+              <Link href="/ateliers">
                 <Button
                   variant="outline"
                   size="lg"
                   className="uppercase tracking-wider font-medium rounded-full px-8 py-6"
-                  data-testid="cta-formations"
+                  data-testid="cta-ateliers"
                 >
-                  Nos Formations
+                  Nos Ateliers
                 </Button>
               </Link>
             </div>
@@ -210,21 +210,18 @@ export default function Home() {
               
               <div className="space-y-5 text-muted-foreground leading-relaxed">
                 <p className="text-lg">
-                  Je suis Emeraude, fondatrice de Spirit Emeraude Création. Ma mission est de
-                  transformer le pagne africain en pièces de luxe tout en offrant aux femmes
-                  les compétences nécessaires pour bâtir leur propre avenir.
+                  Je m’appelle Emeraude Sephora KOULOUFOUA, fondatrice de Spirit Emeraude Création. Passionnée d’artisanat et profondément engagée dans l’autonomisation des jeunes, ma mission est de transformer le pagne africain en pièces de luxe tout en offrant aux femmes, et désormais aux hommes, les compétences nécessaires pour bâtir un avenir durable, précieux et rentable.
                 </p>
                 <p>
-                  Chaque création que vous découvrez ici est le fruit d'un savoir-faire
-                  transmis avec passion. Au-delà de la beauté de nos produits, c'est toute
-                  une communauté qui s'élève vers l'autonomie.
+                  À travers chaque création que vous découvrez ici, c'est un savoir-faire transmis avec passion, mais aussi un engagement pour l’élévation sociale. Mon objectif n’est pas seulement de créer de belles pièces, mais de donner à chacun, en particulier aux jeunes et aux femmes, les outils pour changer leur destin et atteindre une autonomie durable. Chaque atelier que je propose est fondé sur une conviction simple : lorsqu’on donne à un enfant une compétence, on libère son avenir.
                 </p>
                 <p>
-                  Ensemble, nous prouvons que l'artisanat africain peut allier excellence,
-                  élégance et impact social.
+                  Ma vision est inspirée par la Conférence Internationale des Femmes Élites (CIFE), qui partage les mêmes valeurs de transmission, d’élévation et d’impact social positif. À travers Spirit Emeraude Création, nous prouvons ensemble que l’artisanat africain peut allier excellence, élégance et transformation sociale.
                 </p>
-              </div>
-              
+                <p>
+                  Ce travail n’est pas seulement une activité artisanale : c’est un appel, un engagement et une mission. Nous semons dans la vie de ceux qui n'ont parfois jamais eu cette chance, en ouvrant des portes vers un avenir plus lumineux.
+                </p>
+            </div>
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
                 <Link href="/impact">
                   <Button
@@ -269,7 +266,7 @@ export default function Home() {
               Explorez l'univers Spirit
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Découvrez nos collections phares et nos programmes de formation
+              Découvrez nos collections phares et nos programmes d'ateliers
             </p>
           </div>
 
@@ -348,15 +345,15 @@ export default function Home() {
               </div>
             </Link>
 
-            {/* Formations */}
-            <Link href="/formations">
+            {/* Ateliers */}
+            <Link href="/ateliers">
               <div
                 className="group relative aspect-[4/5] overflow-hidden rounded-2xl cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500 md:col-span-2 lg:col-span-1"
-                data-testid="category-formations"
+                data-testid="category-ateliers"
               >
                 <img
                   src={WORKSHOP_IMAGE_URL}
-                  alt="Formations"
+                  alt="Ateliers"
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
@@ -366,7 +363,7 @@ export default function Home() {
                     <span className="font-medium">Autonomisation</span>
                   </div>
                   <h3 className="font-serif text-2xl md:text-3xl font-bold text-white mb-3">
-                    Formations
+                    Ateliers
                   </h3>
                   <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <p className="text-white/90 text-sm mb-4">

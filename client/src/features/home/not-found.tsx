@@ -106,7 +106,7 @@ export default function NotFound() {
                 </Button>
               </Link>
               
-              <Link href="/formations">
+              <Link href="/ateliers">
                 <Button 
                   variant="ghost" 
                   className="w-full h-auto py-4 px-4 rounded-xl hover:bg-primary/5 hover:text-primary group"
@@ -116,7 +116,7 @@ export default function NotFound() {
                       <GraduationCap className="w-5 h-5 text-primary" />
                     </div>
                     <div className="text-left flex-1">
-                      <div className="font-medium text-base">Formations</div>
+                      <div className="font-medium text-base">Ateliers</div>
                       <div className="text-sm text-muted-foreground">Nos ateliers</div>
                     </div>
                     <ArrowLeft className="w-4 h-4 text-muted-foreground rotate-180" />

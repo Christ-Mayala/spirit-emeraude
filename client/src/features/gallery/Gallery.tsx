@@ -140,7 +140,7 @@ export default function Gallery() {
             
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
               Explorez notre univers à travers ces moments capturés : créations artisanales,
-              ateliers de formation et actions humanitaires.
+              ateliers et actions humanitaires.
             </p>
 
             {/* Stats */}

@@ -61,7 +61,7 @@ Use generous whitespace throughout. Employ modern spacing units (4px, 8px, 16px,
 
 **Categories Section**
 - Asymmetric Bento Grid layout
-- Three featured categories: "Sacs & Pochettes", "Sandales", "Formations"
+- Three featured categories: "Sacs & Pochettes", "Sandales", "Ateliers"
 - Mix of image sizes for visual interest
 - Category names overlaid on images with semi-transparent backgrounds
 
@@ -82,7 +82,7 @@ Use generous whitespace throughout. Employ modern spacing units (4px, 8px, 16px,
 - "Commander" button that maintains elegance
 - Grid: 3 columns desktop, 2 tablet, 1 mobile
 
-### Formations Page
+### Ateliers Page
 
 **Introduction**
 - Inspiring text about empowerment and learning
@@ -134,7 +134,7 @@ Use generous whitespace throughout. Employ modern spacing units (4px, 8px, 16px,
 
 ### WhatsApp Integration
 - Product "Commander" buttons: Open WhatsApp with pre-filled message: "Bonjour Spirit, je souhaite commander le [Product Name] à [Price] FCFA."
-- Formation "S'inscrire" buttons: Pre-filled message: "Bonjour, je suis intéressé par la formation [Formation Name]."
+- Atelier "S'inscrire" buttons: Pre-filled message: "Bonjour, je suis intéressé(e) par l'atelier [Atelier Name]."
 
 ### Responsive Behavior
 - Mobile-first approach

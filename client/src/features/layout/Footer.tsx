@@ -24,8 +24,8 @@ const quickLinks = [
     icon: <Sparkles className="w-3 h-3" />,
   },
   {
-    href: "/formations",
-    label: "Formations",
+    href: "/ateliers",
+    label: "Ateliers",
     icon: <Award className="w-3 h-3" />,
   },
   {

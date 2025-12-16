@@ -20,7 +20,7 @@ Spirit Emeraude Création is a luxury African artisan brand e-commerce platform.
 │   │   ├── components/
 │   │   │   ├── layout/        # Header, Footer, Layout
 │   │   │   └── ui/            # shadcn/ui components
-│   │   ├── pages/             # Route pages (Home, Shop, Formations, etc.)
+│   │   ├── pages/             # Route pages (Home, Shop, Ateliers, etc.)
 │   │   ├── hooks/             # Custom React hooks
 │   │   └── lib/               # Utilities and query client
 │   └── index.html
@@ -52,15 +52,15 @@ Spirit Emeraude Création is a luxury African artisan brand e-commerce platform.
 ### Home (`/`)
 - Split-screen hero with compelling headline and product image
 - Mission/storytelling section with founder profile
-- Categories bento grid linking to Shop and Formations
+- Categories bento grid linking to Shop and Ateliers
 
 ### Shop (`/boutique`)
 - Product catalog with category filters (Sacs, Sandales, Accessoires)
 - WhatsApp ordering integration
 - Featured products and stock status
 
-### Formations (`/formations`)
-- Workshop listings with pricing, duration, materials
+### Ateliers (`/ateliers`)
+- Workshop listings with duration, media and next session dates
 - Next session dates
 - WhatsApp registration links
 
@@ -85,8 +85,8 @@ Spirit Emeraude Création is a luxury African artisan brand e-commerce platform.
 |----------|--------|-------------|
 | `/api/products` | GET | List all products, supports `?category=` filter |
 | `/api/products/:id` | GET | Get single product |
-| `/api/formations` | GET | List all formations |
-| `/api/formations/:id` | GET | Get single formation |
+| `/api/ateliers` | GET | List all ateliers |
+| `/api/ateliers/:id` | GET | Get single atelier |
 | `/api/impacts` | GET | List all impact initiatives |
 | `/api/impacts/:id` | GET | Get single impact |
 | `/api/gallery` | GET | List all gallery photos, supports `?category=` filter |
@@ -97,11 +97,11 @@ Spirit Emeraude Création is a luxury African artisan brand e-commerce platform.
 ### Product
 - id, name, category, price, description, images[], isFeatured, inStock, slug
 
-### Formation
-- id, name, description, duration, price, materials, image, nextSession
+### Atelier
+- id, name, description, duration, images[], videos[], nextSession
 
 ### Impact
-- id, name, description, images[], date, location
+- id, name, description, images[], videos[], date, location
 
 ### GalleryPhoto
 - id, name, category, imageUrl
@@ -110,9 +110,9 @@ Spirit Emeraude Création is a luxury African artisan brand e-commerce platform.
 - id, name, phone, email, subject, message
 
 ## WhatsApp Integration
-Products and formations include "Commander" / "S'inscrire" buttons that open WhatsApp with pre-filled messages:
+Products and ateliers include "Commander" / "S'inscrire" buttons that open WhatsApp with pre-filled messages:
 - Product orders: "Bonjour Spirit, je souhaite commander le [Product Name] à [Price] FCFA."
-- Formation registration: "Bonjour, je suis intéressé(e) par la formation [Formation Name]."
+- Atelier registration: "Bonjour, je suis intéressé(e) par l'atelier [Atelier Name]."
 
 ## Running the Project
 The application runs with `npm run dev` which starts both the Express backend and Vite frontend on port 5000.

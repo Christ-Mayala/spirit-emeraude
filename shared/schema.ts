@@ -22,26 +22,27 @@ export const insertProductSchema = productSchema.omit({ id: true });
 export type Product = z.infer<typeof productSchema>;
 export type InsertProduct = z.infer<typeof insertProductSchema>;
 
-export const formationSchema = z.object({
+
+export const atelierSchema = z.object({
   id: z.string(),
   name: z.string(),
   description: z.string(),
-  duration: z.string(),
-  price: z.number(),
-  materials: z.string(),
-  image: z.string().optional(),
+  duration: z.string().optional(),
+  images: z.array(z.string()).optional().default([]),
+  videos: z.array(z.string()).optional().default([]),
   nextSession: z.string().optional(),
 });
 
-export const insertFormationSchema = formationSchema.omit({ id: true });
-export type Formation = z.infer<typeof formationSchema>;
-export type InsertFormation = z.infer<typeof insertFormationSchema>;
+export const insertAtelierSchema = atelierSchema.omit({ id: true });
+export type Atelier = z.infer<typeof atelierSchema>;
+export type InsertAtelier = z.infer<typeof insertAtelierSchema>;
 
 export const impactSchema = z.object({
   id: z.string(),
   name: z.string(),
   description: z.string(),
   images: z.array(z.string()),
+  videos: z.array(z.string()),
   date: z.string(),
   location: z.string().optional(),
 });
