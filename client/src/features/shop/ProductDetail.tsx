@@ -22,7 +22,7 @@ import {
 import type { Product } from "@shared/schema";
 import { api } from "@/core/api/api";
 
-const WHATSAPP_NUMBER = "242068457521";
+const WHATSAPP_NUMBER = "242067674083";
 
 function generateWhatsAppLink(product: Product): string {
   const message = encodeURIComponent(

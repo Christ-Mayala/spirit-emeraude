@@ -1,83 +1,34 @@
-import { z } from "zod";
+// shared/schema.ts
+import { z } from 'zod';
 
-export const productCategoryEnum = z.enum(['sac', 'trousse', 'sandale', 'accessoire', 'personnalise', 'saisonnier']);
-export type ProductCategory = z.infer<typeof productCategoryEnum>;
+// Schéma pour le formulaire de contact
+export const insertContactMessageSchema = z.object({
+  name: z.string().min(2, "Le nom doit contenir au moins 2 caractères"),
+  email: z.string().email("Veuillez entrer une adresse email valide"),
+  subject: z.string().min(3, "Le sujet doit contenir au moins 3 caractères"),
+  message: z.string().min(10, "Le message doit contenir au moins 10 caractères"),
+  phone: z.string().optional()
+});
 
-export const galleryCategoryEnum = z.enum(['atelier', 'creation', 'humanitaire', 'autre']);
-export type GalleryCategory = z.infer<typeof galleryCategoryEnum>;
+export type ContactFormData = z.infer<typeof insertContactMessageSchema>;
 
+// Schéma pour les produits
 export const productSchema = z.object({
   id: z.string(),
   name: z.string(),
-  category: productCategoryEnum,
+  description: z.string(),
   price: z.number(),
-  description: z.string(),
+  category: z.string(),
   images: z.array(z.string()),
-  isFeatured: z.boolean(),
   inStock: z.boolean(),
-  slug: z.string(),
+  createdAt: z.date()
 });
 
-export const insertProductSchema = productSchema.omit({ id: true });
-export type Product = z.infer<typeof productSchema>;
-export type InsertProduct = z.infer<typeof insertProductSchema>;
-
-
-export const atelierSchema = z.object({
+// Schéma utilisateur
+export const userSchema = z.object({
   id: z.string(),
+  email: z.string().email(),
   name: z.string(),
-  description: z.string(),
-  duration: z.string().optional(),
-  images: z.array(z.string()).optional().default([]),
-  videos: z.array(z.string()).optional().default([]),
-  nextSession: z.string().optional(),
+  role: z.enum(['user', 'admin']),
+  createdAt: z.date()
 });
-
-export const insertAtelierSchema = atelierSchema.omit({ id: true });
-export type Atelier = z.infer<typeof atelierSchema>;
-export type InsertAtelier = z.infer<typeof insertAtelierSchema>;
-
-export const impactSchema = z.object({
-  id: z.string(),
-  name: z.string(),
-  description: z.string(),
-  images: z.array(z.string()),
-  videos: z.array(z.string()),
-  date: z.string(),
-  location: z.string().optional(),
-});
-
-export const insertImpactSchema = impactSchema.omit({ id: true });
-export type Impact = z.infer<typeof impactSchema>;
-export type InsertImpact = z.infer<typeof insertImpactSchema>;
-
-export const galleryPhotoSchema = z.object({
-  id: z.string(),
-  name: z.string().optional(),
-  category: galleryCategoryEnum,
-  imageUrl: z.string(),
-});
-
-export const insertGalleryPhotoSchema = galleryPhotoSchema.omit({ id: true });
-export type GalleryPhoto = z.infer<typeof galleryPhotoSchema>;
-export type InsertGalleryPhoto = z.infer<typeof insertGalleryPhotoSchema>;
-
-export const contactMessageSchema = z.object({
-  id: z.string(),
-  name: z.string().min(2, "Le nom doit contenir au moins 2 caractères"),
-  phone: z.string().min(8, "Numéro de téléphone invalide"),
-  email: z.string().email("Email invalide").optional().or(z.literal("")),
-  subject: z.string().optional(),
-  message: z.string().min(10, "Le message doit contenir au moins 10 caractères"),
-});
-
-export const insertContactMessageSchema = contactMessageSchema.omit({ id: true });
-export type ContactMessage = z.infer<typeof contactMessageSchema>;
-export type InsertContactMessage = z.infer<typeof insertContactMessageSchema>;
-
-export interface ApiResponse<T> {
-  success: boolean;
-  message?: string;
-  data: T;
-  pagination?: { page: number; limit: number; total: number };
-}
