@@ -65,8 +65,7 @@ export default function App() {
           <Toaster />
           <Router />
           {/* Ajoutez les prompts PWA ici */}
-          <PWAInstallPrompt />
-          <PWAUpdatePrompt />
+          <PWAInstallPrompt /> 
         </AuthProvider>
       </TooltipProvider>
     </QueryClientProvider>

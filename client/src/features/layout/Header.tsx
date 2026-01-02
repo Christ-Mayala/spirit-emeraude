@@ -92,15 +92,13 @@ export function Header() {
             <Link href={isDashboard && isAdmin ? "/dashboard" : "/"}>
               <div className="flex items-center gap-2 group cursor-pointer" data-testid="logo">
                 {/* Logo conteneur avec taille adaptée */}
-                <div className="relative w-10 h-10 md:w-12 md:h-12">
-                  <div className="w-full h-full p-0.5">
-                    <img
-                        src="/logo.png"
-                        alt="Logo Spirit KES"
-                        className="w-full h-full object-contain"
-                        style={{ imageRendering: 'high-quality' }}
-                    />
-                  </div>
+                <div className="relative">
+                  <img
+                      src="/logo.png"
+                      alt="Spirit KES Logo"
+                      className="w-10 h-10 object-cover rounded-full scale-125 shadow-md"
+                  />
+                  <div className="absolute -inset-3 bg-primary/5 rounded-full blur"></div>
                 </div>
 
                 {/* Texte à côté du logo */}
