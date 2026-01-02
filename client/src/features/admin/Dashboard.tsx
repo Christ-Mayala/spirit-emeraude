@@ -10,7 +10,7 @@ function DashboardContent() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         <header className="space-y-2">
           <h1 className="font-serif text-3xl md:text-4xl font-bold">
-            Tableau de bord Spirit Emeraude
+            Tableau de bord Spirit KES
           </h1>
           <p className="text-muted-foreground">
             Gérez les contenus métiers exposés à vos clients : produits, ateliers,

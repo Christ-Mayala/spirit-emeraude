@@ -26,7 +26,7 @@ const WHATSAPP_NUMBER = "242068457521";
 
 function generateWhatsAppLink(product: Product): string {
   const message = encodeURIComponent(
-    `*NOUVELLE COMMANDE - Spirit Emeraude* \n\n` +
+    `*NOUVELLE COMMANDE - Spirit KES* \n\n` +
       `*Produit :* ${product.name}\n` +
       `*Prix :* ${product.price.toLocaleString("fr-FR")} FCFA\n` +
       `*Catégorie :* ${product.category}\n\n` +

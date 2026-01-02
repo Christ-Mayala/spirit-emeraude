@@ -166,7 +166,7 @@ export default function Contact() {
         <div className="absolute inset-0">
           <img
             src={CONTACT_HERO_URL}
-            alt="Contact Spirit Emeraude"
+            alt="Contact Spirit KES"
             className="w-full h-full object-cover"
             loading="eager"
           />
@@ -349,7 +349,7 @@ export default function Contact() {
                 </p>
                 <a
                   href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-                    "✨ *DEMANDE COMMANDE PERSONNALISÉE* ✨\n\nBonjour Spirit Emeraude,\nJe souhaiterais discuter d'une création sur mesure.",
+                    "✨ *DEMANDE COMMANDE PERSONNALISÉE* ✨\n\nBonjour Spirit KES,\nJe souhaiterais discuter d'une création sur mesure.",
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"

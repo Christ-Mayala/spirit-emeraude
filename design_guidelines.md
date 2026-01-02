@@ -1,4 +1,4 @@
-# Spirit Emeraude Création - Design Guidelines
+# Spirit KES - Design Guidelines
 
 ## Design Philosophy
 **Luxury African Artisan Brand** - Premium minimalism that breathes elegance, authenticity, and social impact. Inspired by Mawu Africa's aesthetic: abundant whitespace, clean edges, no heavy shadows, refined premium feel.
@@ -29,7 +29,7 @@ Use generous whitespace throughout. Employ modern spacing units (4px, 8px, 16px,
 
 ### Header (Sticky)
 - Slightly transparent background with glassmorphism effect
-- Centered logo "SPIRIT EMERAUDE"
+- Centered logo "Spirit KES"
 - Desktop: Clean menu items flanking the logo
 - Mobile: Burger menu icon
 - Subtle shadow on scroll

@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* LIGHT MODE - Spirit Emeraude Création Design System */
+/* LIGHT MODE - Spirit KES Design System */
 :root {
   --button-outline: rgba(0,0,0, .10);
   --badge-outline: rgba(0,0,0, .05);
@@ -10,7 +10,7 @@
   --elevate-1: rgba(0,0,0, .03);
   --elevate-2: rgba(0,0,0, .08);
   
-  /* Spirit Emeraude Colors */
+  /* Spirit KES Colors */
   --background: 43 47% 98%;
   --foreground: 24 9% 16%;
   --border: 40 20% 88%;
@@ -92,7 +92,7 @@
   --destructive-border: hsl(var(--destructive));
   --destructive-border: hsl(from hsl(var(--destructive)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
   
-  /* Custom Spirit Emeraude colors */
+  /* Custom Spirit KES colors */
   --emerald-deep: 164 90% 16%;
   --gold-muted: 45 65% 52%;
   --footer-bg: 217 19% 17%;

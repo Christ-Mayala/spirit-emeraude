@@ -308,7 +308,7 @@ function AdminGalleryContent() {
                       <div className="aspect-square bg-muted overflow-hidden">
                         <img
                           src={photo.imageUrl}
-                          alt={photo.name || "Photo galerie Spirit Emeraude"}
+                          alt={photo.name || "Photo galerie Spirit KES"}
                           className="w-full h-full object-cover"
                         />
                       </div>

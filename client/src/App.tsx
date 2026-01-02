@@ -6,7 +6,7 @@ import { TooltipProvider } from "@/core/ui/tooltip";
 import { Layout } from "@/features/layout/Layout";
 import Home from "@/features/home/Home";
 import Shop from "@/features/shop/Shop";
-import ProductDetail from "@/features/shop/ProductDetail";  // <-- IMPORT OBLIGATOIRE
+import ProductDetail from "@/features/shop/ProductDetail";
 import Ateliers from "@/features/ateliers/Ateliers";
 import ImpactPage from "@/features/impact/Impact";
 import Gallery from "@/features/gallery/Gallery";
@@ -23,6 +23,9 @@ import {
 } from "@/features/admin";
 import { AuthProvider } from "@/core/hooks/use-auth";
 import { ScrollToTop } from "@/core/hooks/use-scroll-to-top";
+
+// Import des composants PWA
+import { PWAInstallPrompt, PWAUpdatePrompt } from "@/core/pwa";
 
 function Router() {
   return (
@@ -61,6 +64,9 @@ export default function App() {
         <AuthProvider>
           <Toaster />
           <Router />
+          {/* Ajoutez les prompts PWA ici */}
+          <PWAInstallPrompt />
+          <PWAUpdatePrompt />
         </AuthProvider>
       </TooltipProvider>
     </QueryClientProvider>

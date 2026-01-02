@@ -1,0 +1,168 @@
+.pwa-install-prompt {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  left: 24px;
+  max-width: 420px;
+  margin: 0 auto;
+  z-index: 9999;
+  animation: pwa-slide-up 0.3s ease-out;
+  font-family: 'Montserrat', sans-serif;
+}
+
+@keyframes pwa-slide-up {
+  from { transform: translateY(100px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.pwa-install-content {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.pwa-install-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  background: #0A3D2F; /* Vert foncé */
+  color: white;
+}
+
+.pwa-install-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  font-family: 'Domine', serif;
+  display: flex;
+  align-items: center;
+}
+
+.pwa-close-btn {
+  background: rgba(212, 175, 55, 0.2); /* Or transparent */
+  border: none;
+  color: white;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.pwa-close-btn:hover {
+  background: rgba(212, 175, 55, 0.3); /* Or légèrement plus visible */
+  transform: scale(1.1);
+}
+
+.pwa-install-body {
+  padding: 24px;
+}
+
+.pwa-install-body p {
+  margin: 0 0 16px 0;
+  color: #0A3D2F; /* Vert foncé pour le texte */
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.pwa-install-body ul {
+  margin: 0 0 20px 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.pwa-install-body li {
+  margin-bottom: 10px;
+  color: #1F2937; /* Gris-vert pour le texte secondaire */
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  padding-left: 0;
+}
+
+.ios-instructions {
+  background: rgba(10, 61, 47, 0.1); /* Vert foncé transparent */
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-top: 16px;
+  border-left: 4px solid #0A3D2F; /* Bordure verte */
+}
+
+.ios-instructions small {
+  color: #0A3D2F; /* Vert foncé */
+  font-size: 0.85rem;
+  line-height: 1.5;
+  display: flex;
+  align-items: center;
+}
+
+.pwa-install-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 20px 24px;
+  background: #F9FAFB; /* Gris très clair */
+  border-top: 1px solid #E5E7EB; /* Bordure gris clair */
+}
+
+.pwa-btn-primary,
+.pwa-btn-secondary {
+  padding: 12px 24px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: all 0.2s;
+  font-family: 'Montserrat', sans-serif;
+  min-width: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pwa-btn-primary {
+  background: #0A3D2F; /* Vert foncé */
+  color: white;
+  box-shadow: 0 4px 6px rgba(10, 61, 47, 0.2);
+}
+
+.pwa-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(10, 61, 47, 0.3);
+}
+
+.pwa-btn-secondary {
+  background: white;
+  color: #0A3D2F; /* Vert foncé */
+  border: 1px solid #D1D5DB; /* Gris clair */
+}
+
+.pwa-btn-secondary:hover {
+  background: #F3F4F6; /* Gris très clair */
+  border-color: #9CA3AF; /* Gris moyen */
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .pwa-install-prompt { left: 16px; right: 16px; bottom: 16px; }
+  .pwa-install-footer { flex-direction: column; }
+  .pwa-btn-primary, .pwa-btn-secondary { width: 100%; min-width: unset; }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .pwa-install-content { background: #1F2937; border-color: #374151; }
+  .pwa-install-body p { color: #F9FAFB; }
+  .pwa-install-body li { color: #D1D5DB; }
+  .pwa-install-footer { background: #111827; border-color: #374151; }
+  .pwa-btn-secondary { background: #374151; color: #F9FAFB; border-color: #4B5563; }
+  .pwa-btn-secondary:hover { background: #4B5563; }
+}

@@ -75,6 +75,8 @@ export default function Home() {
     return () => clearInterval(interval);
   }, []);
 
+  // @ts-ignore
+  // @ts-ignore
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
@@ -85,7 +87,7 @@ export default function Home() {
         <div className="absolute inset-0">
           <img
             src={HERO_IMAGE_URL}
-            alt="Sac en pagne de luxe Spirit Emeraude"
+            alt="Sac en pagne de luxe Spirit KES"
             className="absolute inset-0 w-full h-full object-cover"
             data-testid="hero-image"
           />
@@ -104,18 +106,18 @@ export default function Home() {
                 Artisanat de Luxe Africain
               </span>
             </div>
-            
+
             <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-foreground leading-tight mb-6">
               L'art qui libère,
               <br />
               <span className="text-primary">l'élégance qui inspire</span>
             </h1>
-            
+
             <p className="text-lg text-muted-foreground leading-relaxed mb-10 max-w-md">
               Découvrez nos créations artisanales en pagne, symboles d'authenticité
               et d'autonomisation. Chaque pièce raconte une histoire de transformation.
             </p>
-            
+
             <div className="flex flex-col sm:flex-row gap-4 mb-12">
               <Link href="/boutique">
                 <Button
@@ -149,7 +151,7 @@ export default function Home() {
                 { value: 1, suffix: "", label: "Années d'expertise", icon: Award, color: "text-gold-muted" },
                 { value: 1, suffix: "", label: "Orphelinat aidés", icon: Heart, color: "text-primary" }
               ].map((stat, index) => (
-                <div 
+                <div
                   key={index}
                   className={`p-3 rounded-lg border border-border/50 bg-card/50 transition-all duration-500 hover:scale-105 hover:border-gold-muted/30 cursor-pointer ${
                     activeStat === index ? 'ring-2 ring-gold-muted/30 scale-105' : ''
@@ -186,7 +188,7 @@ export default function Home() {
               <div className="relative aspect-[3/4] max-w-md mx-auto lg:mx-0 overflow-hidden rounded-xl shadow-2xl">
                 <img
                   src={FOUNDER_IMAGE_URL}
-                  alt="Emeraude, fondatrice de Spirit Emeraude Création"
+                  alt="Emeraude, fondatrice de Spirit KES"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   data-testid="founder-image"
                 />
@@ -203,31 +205,43 @@ export default function Home() {
                   Notre Histoire
                 </span>
               </div>
-              
+
               <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-foreground leading-tight">
                 Former pour libérer l'avenir
               </h2>
-              
+
               <div className="space-y-5 text-muted-foreground leading-relaxed">
                 <p className="text-lg">
-                  Je m’appelle Emeraude Sephora KOULOUFOUA, fondatrice de Spirit Emeraude Création. Passionnée d’artisanat et profondément engagée dans l’autonomisation des jeunes, ma mission est de transformer le pagne africain en pièces de luxe tout en offrant aux femmes, et désormais aux hommes, les compétences nécessaires pour bâtir un avenir durable, précieux et rentable.
+                  Je m’appelle <strong className="text-gold-600">Emeraude Sephora KOULOUFOUA</strong>, fondatrice
+                  de <strong className="text-gold-600">Spirit KES</strong>. Passionnée d’artisanat et
+                  engagée pour l’autonomisation des jeunes, je transforme le <strong className="text-gold-600">pagne
+                  africain en pièces de luxe</strong>, tout en offrant aux femmes et aux hommes les <strong
+                    className="text-gold-600">compétences pour construire un avenir durable et rentable</strong>.
                 </p>
                 <p>
-                  À travers chaque création que vous découvrez ici, c'est un savoir-faire transmis avec passion, mais aussi un engagement pour l’élévation sociale. Mon objectif n’est pas seulement de créer de belles pièces, mais de donner à chacun, en particulier aux jeunes et aux femmes, les outils pour changer leur destin et atteindre une autonomie durable. Chaque atelier que je propose est fondé sur une conviction simple : lorsqu’on donne à un enfant une compétence, on libère son avenir.
+                  Chaque création porte un double sens : <strong className="text-gold-600">un savoir-faire transmis avec
+                  passion</strong> et <strong className="text-gold-600">un engagement social</strong> pour donner aux
+                  jeunes et aux femmes les outils nécessaires afin de <strong className="text-gold-600">changer leur
+                  destin</strong> et atteindre l’autonomie.
                 </p>
                 <p>
-                  Ma vision est inspirée par la Conférence Internationale des Femmes Élites (CIFE), qui partage les mêmes valeurs de transmission, d’élévation et d’impact social positif. À travers Spirit Emeraude Création, nous prouvons ensemble que l’artisanat africain peut allier excellence, élégance et transformation sociale.
+                  Inspirée par la <strong className="text-gold-600">Conférence Internationale des Femmes Élites
+                  (CIFE)</strong>,
+                  je prouve que l’artisanat africain peut allier <strong className="text-gold-600">excellence, élégance
+                  et transformation sociale</strong>.
                 </p>
                 <p>
-                  Ce travail n’est pas seulement une activité artisanale : c’est un appel, un engagement et une mission. Nous semons dans la vie de ceux qui n'ont parfois jamais eu cette chance, en ouvrant des portes vers un avenir plus lumineux.
-                </p>
-            </div>
+                <strong className="text-gold-600">Spirit KES</strong> n’est pas qu’un atelier, c’est
+                une <strong className="text-gold-600">mission</strong> : semer l’espoir et ouvrir des portes vers un
+                avenir plus lumineux.
+              </p>
+              </div>
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
                 <Link href="/impact">
                   <Button
-                    variant="outline"
-                    className="group rounded-full px-6"
-                    data-testid="cta-impact"
+                      variant="outline"
+                      className="group rounded-full px-6"
+                      data-testid="cta-impact"
                   >
                     Découvrir notre impact
                     <ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -253,7 +267,7 @@ export default function Home() {
         data-testid="categories-section"
       >
         <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-gold-muted/30 to-transparent"></div>
-        
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gold-muted/10 border border-gold-muted/20 mb-6">
@@ -404,12 +418,12 @@ export default function Home() {
           <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
             Rejoignez notre mission
           </h2>
-          
+
           <p className="text-xl text-white/90 mb-10 max-w-2xl mx-auto leading-relaxed">
             Chaque achat contribue à former une femme vers l'autonomie.
             Ensemble, créons un impact durable et transformons des vies.
           </p>
-          
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/boutique">
               <Button
@@ -438,7 +452,7 @@ export default function Home() {
       </section>
 
       {/* Animation Styles */}
-      <style jsx>{`
+      <style>{`
         @keyframes pulse {
           0%, 100% { opacity: 1; }
           50% { opacity: 0.5; }

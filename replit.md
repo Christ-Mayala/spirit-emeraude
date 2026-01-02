@@ -1,7 +1,7 @@
-# Spirit Emeraude Création
+# Spirit KES
 
 ## Overview
-Spirit Emeraude Création is a luxury African artisan brand e-commerce platform. The website showcases handcrafted products made from traditional African pagne fabric, offers artisan training programs, and highlights the brand's social impact initiatives.
+Spirit KES is a luxury African artisan brand e-commerce platform. The website showcases handcrafted products made from traditional African pagne fabric, offers artisan training programs, and highlights the brand's social impact initiatives.
 
 ## Project Architecture
 

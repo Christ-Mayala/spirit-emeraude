@@ -207,14 +207,16 @@ export function Footer() {
           <div className="space-y-6">
             <div className="flex items-center gap-3">
               <div className="relative">
-                <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-gold-muted to-primary flex items-center justify-center">
-                  <Sparkles className="w-6 h-6 text-white" />
-                </div>
-                <div className="absolute -inset-2 bg-gold-muted/20 rounded-lg blur-md"></div>
+                <img
+                    src="/logo.png"
+                    alt="Spirit KES Logo"
+                    className="w-16 h-16 object-cover rounded-full scale-125 shadow-md"
+                />
+                <div className="absolute -inset-3 bg-primary/5 rounded-full blur"></div>
               </div>
               <div>
                 <h3 className="font-serif text-2xl font-bold text-white">
-                  SPIRIT EMERAUDE
+                  Spirit KES
                 </h3>
                 <p className="text-sm text-white/60 uppercase tracking-widest">
                   Création & Autonomisation
@@ -419,7 +421,7 @@ export function Footer() {
         <div className="pt-8 border-t border-white/10">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <p className="text-sm text-white/50">
-              &copy; {currentYear} Spirit Emeraude Création. Tous droits
+              &copy; {currentYear} Spirit KES. Tous droits
               réservés.
             </p>
 

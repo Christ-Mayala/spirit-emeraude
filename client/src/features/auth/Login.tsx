@@ -57,7 +57,7 @@ export default function Login() {
           <div className="text-center space-y-2">
             <h1 className="font-serif text-2xl font-bold">Connexion Admin</h1>
             <p className="text-sm text-muted-foreground">
-              Accédez au tableau de bord de gestion de Spirit Emeraude.
+              Accédez au tableau de bord de gestion de Spirit KES.
             </p>
           </div>
 

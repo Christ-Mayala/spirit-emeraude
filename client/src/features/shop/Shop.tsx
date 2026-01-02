@@ -41,7 +41,7 @@ const WHATSAPP_NUMBER = "242067674083";
 
 function generateWhatsAppLink(product: Product): string {
   const message = encodeURIComponent(
-    `✨ *NOUVELLE COMMANDE - Spirit Emeraude* ✨\n\n` +
+    `✨ *NOUVELLE COMMANDE - Spirit KES* ✨\n\n` +
     `🛍️ *Produit :* ${product.name}\n` +
     `💰 *Prix :* ${product.price.toLocaleString("fr-FR")} FCFA\n` +
     `📂 *Catégorie :* ${product.category}\n\n` +
@@ -105,7 +105,7 @@ export default function Shop() {
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gold-muted/10 border border-gold-muted/20 mb-6">
               <Sparkles className="w-4 h-4 text-gold-muted" />
               <span className="text-sm uppercase tracking-widest text-gold-muted font-medium">
-                Spirit Emeraude
+                Spirit KES
               </span>
             </div>
             <h1

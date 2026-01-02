@@ -127,7 +127,7 @@ export default function Gallery() {
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gold-muted/10 border border-gold-muted/20 mb-6">
               <Sparkles className="w-4 h-4 text-gold-muted" />
               <span className="text-sm uppercase tracking-widest text-gold-muted font-medium">
-                Spirit Emeraude
+                Spirit KES
               </span>
             </div>
             
@@ -218,7 +218,7 @@ export default function Gallery() {
                   <div className="relative overflow-hidden rounded-xl cursor-pointer border border-border/50 hover:border-gold-muted/30 transition-all duration-300">
                     <img
                       src={photo.imageUrl}
-                      alt={photo.name || "Photo galerie Spirit Emeraude"}
+                      alt={photo.name || "Photo galerie Spirit KES"}
                       className="w-full h-auto transition-transform duration-500 group-hover:scale-105"
                       loading="lazy"
                     />
@@ -361,7 +361,7 @@ export default function Gallery() {
               <div className="relative max-w-full max-h-full flex items-center justify-center px-16">
                 <img
                   src={selectedPhoto.imageUrl}
-                  alt={selectedPhoto.name || "Photo galerie Spirit Emeraude"}
+                  alt={selectedPhoto.name || "Photo galerie Spirit KES"}
                   className={`max-w-full max-h-[80vh] object-contain rounded-lg transition-opacity duration-300 ${
                     isImageLoaded ? 'opacity-100' : 'opacity-0'
                   }`}

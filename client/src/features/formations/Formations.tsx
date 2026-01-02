@@ -30,7 +30,7 @@ const WHATSAPP_NUMBER = "242067674083";
 // Construit le lien WhatsApp pour une inscription à une formation.
 function generateWhatsAppLink(formation: Formation): string {
   const message = encodeURIComponent(
-    `✨ *INSCRIPTION FORMATION - Spirit Emeraude* ✨\n\n` +
+    `✨ *INSCRIPTION FORMATION - Spirit KES* ✨\n\n` +
     `🎓 *Formation :* ${formation.name}\n` +
     `💰 *Prix :* ${formation.price.toLocaleString("fr-FR")} FCFA\n` +
     `⏱️ *Durée :* ${formation.duration}\n` +

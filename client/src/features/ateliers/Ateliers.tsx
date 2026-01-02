@@ -32,7 +32,7 @@ function buildWhatsAppLink(atelier: Atelier): string {
     : null;
 
   const message = encodeURIComponent(
-    `✨ *DEMANDE D'INSCRIPTION ATELIER - Spirit Emeraude* ✨\n\n` +
+    `✨ *DEMANDE D'INSCRIPTION ATELIER - Spirit KES* ✨\n\n` +
       `🎓 *Atelier :* ${atelier.name}\n` +
       (atelier.duration ? `⏱️ *Durée :* ${atelier.duration}\n` : "") +
       (date ? `📅 *Prochaine date :* ${date}\n` : "") +
@@ -133,7 +133,7 @@ export default function Ateliers() {
     <div className="min-h-screen bg-background">
       <section className="relative py-20 md:py-28 overflow-hidden" data-testid="ateliers-hero">
         <div className="absolute inset-0">
-          <img src={HERO_URL} alt="Ateliers Spirit Emeraude" className="w-full h-full object-cover" />
+          <img src={HERO_URL} alt="Ateliers Spirit KES" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/85 to-background/70" />
           <div className="absolute top-10 right-10 w-40 h-40 bg-gold-muted/10 rounded-full blur-3xl" />
         </div>

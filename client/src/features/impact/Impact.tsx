@@ -271,7 +271,7 @@ export default function ImpactPage() {
           <div className="absolute inset-0">
             <img
               src={IMPACT_HERO_URL}
-              alt="Impact social Spirit Emeraude"
+              alt="Impact social Spirit KES"
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/85 to-background/70" />
@@ -291,7 +291,7 @@ export default function ImpactPage() {
                 Impact Social
               </h1>
               <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-                Au-delà de la création artisanale, Spirit Emeraude s'engage pour
+                Au-delà de la création artisanale, Spirit KES s'engage pour
                 l'autonomisation des femmes et le soutien aux enfants vulnérables.
                 Chaque pièce vendue contribue à cette mission.
               </p>
