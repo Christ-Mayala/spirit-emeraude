@@ -75,7 +75,7 @@ export default function Login() {
                     <FormControl>
                       <Input
                         type="email"
-                        placeholder="admin@spiritemeraude.com"
+                        placeholder="emeraudekouloufoua5@gmail.com"
                         {...field}
                       />
                     </FormControl>

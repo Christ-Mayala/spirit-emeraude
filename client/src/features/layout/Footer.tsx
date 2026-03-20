@@ -135,7 +135,7 @@ export function Footer() {
       );
 
       window.open(
-        `mailto:emeraudekouloufoua22@gmail.com?subject=${subject}&body=${body}`,
+        `mailto:emeraudekouloufoua5@gmail.com?subject=${subject}&body=${body}`,
         "_blank"
       );
 
@@ -336,14 +336,14 @@ export function Footer() {
                 {[
                   {
                     icon: <Phone className="w-4 h-4" />,
-                    content: "+242 06 987 65 43",
+                    content: "+242 06 767 40 83",
                     href: "tel:+242067674083",
                     testId: "footer-phone",
                   },
                   {
                     icon: <Mail className="w-4 h-4" />,
-                    content: "emeraudekouloufoua22@gmail.com",
-                    href: "mailto:emeraudekouloufoua22@gmail.com",
+                    content: "emeraudekouloufoua5@gmail.com",
+                    href: "mailto:emeraudekouloufoua5@gmail.com",
                     testId: "footer-email",
                   },
                   {

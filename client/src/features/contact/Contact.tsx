@@ -255,7 +255,7 @@ export default function Contact() {
                     {
                       icon: <Phone className="w-4 h-4 md:w-5 md:h-5 text-gold-muted" />,
                       title: "Téléphone",
-                      content: "+242 06 987 65 43",
+                      content: "+242 06 767 40 83",
                       href: "tel:+242067674083",
                       testId: "contact-phone",
                       bgColor: "bg-gold-muted/10"
@@ -271,8 +271,8 @@ export default function Contact() {
                     {
                       icon: <Mail className="w-4 h-4 md:w-5 md:h-5 text-primary" />,
                       title: "Email",
-                      content: "emeraudekouloufoua22@gmail.com",
-                      href: "mailto:emeraudekouloufoua22@gmail.com",
+                      content: "emeraudekouloufoua5@gmail.com",
+                      href: "mailto:emeraudekouloufoua5@gmail.com",
                       testId: "contact-email",
                       bgColor: "bg-primary/10"
                     },
